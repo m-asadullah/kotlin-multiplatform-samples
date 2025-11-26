@@ -50,6 +50,17 @@ jobs:
       - name: Build app
         run: ./gradlew assembleDebug lintDebug --stacktrace
 
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v5.0.0
+        with:
+          name: Fruitties-Android-APK
+          path: ${{ env.SAMPLE_PATH }}/androidApp/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 6
+          overwrite: true
+          include-hidden-files: false
+
   build_ios:
     name: Build iOS app
     runs-on: macos-latest
